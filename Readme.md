@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Olga Davydova](https://up.htmlacademy.ru/javascript/8/user/101991).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Калин](https://htmlacademy.ru/profile/id38651).
 
 ---
 
