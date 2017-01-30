@@ -21,7 +21,10 @@ uploadCancel.addEventListener('click', function () {
 
 var photo = document.querySelector('.filter-image-preview');
 var controls = document.querySelectorAll('input[name="upload-filter"]');
+var filter = document.querySelectorAll('.upload-filter-preview');
 
+filter[4].classList.add('filter-phobos');
+filter[5].classList.add('filter-heat');
 
 for (var j = 0; j < controls.length; j++) {
   clickControl(controls[j]);
