@@ -21,10 +21,7 @@ uploadCancel.addEventListener('click', function () {
 
 var photo = document.querySelector('.filter-image-preview');
 var controls = document.querySelectorAll('input[name="upload-filter"]');
-var filter = document.querySelectorAll('.upload-filter-preview');
 
-filter[4].classList.add('filter-phobos');
-filter[5].classList.add('filter-heat');
 
 for (var j = 0; j < controls.length; j++) {
   clickControl(controls[j]);
@@ -54,7 +51,7 @@ controlsValue.step = 25;
 controlsValue.value = '100%';
 
 buttonDec.addEventListener('click', function () {
-  var value = controlsValue.value.replace(/%/g, '');
+  var value = parseInt(controlsValue.value, 10);
   if (value > 25) {
     var percent = Number(value) - 25;
     var scale = percent / 100;
@@ -63,7 +60,7 @@ buttonDec.addEventListener('click', function () {
   }
 });
 buttonInc.addEventListener('click', function () {
-  var value = controlsValue.value.replace(/%/g, '');
+  var value = parseInt(controlsValue.value, 10);
   if (value < 100) {
     var percent = Number(value) + 25;
     var scale = percent / 100;
