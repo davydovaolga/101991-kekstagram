@@ -47,21 +47,24 @@ var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
 var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
 var controlsValue = document.querySelector('.upload-resize-controls-value');
 
-controlsValue.type = 'number';
 controlsValue.step = 25;
-controlsValue.value = 100;
+controlsValue.value = '100%';
 
 buttonDec.addEventListener('click', function () {
-  if (controlsValue.value > 25) {
-    controlsValue.value = Number(controlsValue.value) - 25;
-    var scale = controlsValue.value / 100;
+  var value = controlsValue.value.replace(/%/g, '');
+  if (value > 25) {
+    var percent = Number(value) - 25;
+    var scale = percent / 100;
     photo.style.transform = 'scale(' + scale + ')';
+    controlsValue.value = String(percent) + '%';
   }
 });
 buttonInc.addEventListener('click', function () {
-  if (controlsValue.value < 100) {
-    controlsValue.value = Number(controlsValue.value) + 25;
-    var scale = controlsValue.value / 100;
+  var value = controlsValue.value.replace(/%/g, '');
+  if (value < 100) {
+    var percent = Number(value) + 25;
+    var scale = percent / 100;
     photo.style.transform = 'scale(' + scale + ')';
+    controlsValue.value = String(percent) + '%';
   }
 });
