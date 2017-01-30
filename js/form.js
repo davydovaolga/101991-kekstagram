@@ -4,6 +4,7 @@ var uploadOverlay = document.querySelector('.upload-overlay');
 var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadfile = document.querySelector('#upload-file');
 var uploadCancel = document.querySelector('#upload-cancel');
+var controlsValue = document.querySelector('.upload-resize-controls-value');
 
 uploadOverlay.classList.add('invisible');
 uploadSelectImage.classList.remove('invisible');
@@ -12,6 +13,12 @@ uploadfile.addEventListener('click', function (event) {
   event.preventDefault();
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
+  controlsValue.step = 25;
+  controlsValue.value = '100%';
+  var value = parseInt(controlsValue.value, 10);
+  var scale = value / 100;
+  photo.style.transform = 'scale(' + scale + ')';
+  controlsValue.value = String(value) + '%';
 });
 
 uploadCancel.addEventListener('click', function () {
@@ -45,10 +52,7 @@ function toggleFilter(control) {
 
 var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
 var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
-var controlsValue = document.querySelector('.upload-resize-controls-value');
 
-controlsValue.step = 25;
-controlsValue.value = '100%';
 
 buttonDec.addEventListener('click', function () {
   var value = parseInt(controlsValue.value, 10);
