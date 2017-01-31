@@ -18,6 +18,20 @@ uploadCancel.addEventListener('click', openWindow);
 buttonDec.addEventListener('click', zoomOut);
 buttonInc.addEventListener('click', zoomIn);
 
+function closeWindow(event) {
+  event.preventDefault();
+  uploadOverlay.classList.remove('invisible');
+  uploadSelectImage.classList.add('invisible');
+  controlsValue.step = 25;
+  controlsValue.value = '100%';
+  var value = parseInt(controlsValue.value, 10);
+  scaleСalculation(value);
+  for (var i = 0; i < controls.length; i++) {
+    photo.classList.remove('filter-' + controls[i].value);
+  }
+  photo.classList.add('filter-none');
+}
+
 for (var j = 0; j < controls.length; j++) {
   clickControl(controls[j]);
 }
@@ -41,16 +55,6 @@ function toggleFilter(control) {
 function openWindow() {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
-}
-
-function closeWindow(event) {
-  event.preventDefault();
-  uploadOverlay.classList.remove('invisible');
-  uploadSelectImage.classList.add('invisible');
-  controlsValue.step = 25;
-  controlsValue.value = '100%';
-  var value = parseInt(controlsValue.value, 10);
-  scaleСalculation(value);
 }
 
 function zoomOut() {
