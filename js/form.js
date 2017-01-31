@@ -50,27 +50,27 @@ function closeWindow(event) {
   controlsValue.step = 25;
   controlsValue.value = '100%';
   var value = parseInt(controlsValue.value, 10);
-  var scale = value / 100;
-  photo.style.transform = 'scale(' + scale + ')';
-  controlsValue.value = String(value) + '%';
+  scaleСalculation(value);
 }
 
 function zoomOut() {
   var value = parseInt(controlsValue.value, 10);
   if (value > 25) {
-    var percent = Number(value) - 25;
-    var scale = percent / 100;
-    photo.style.transform = 'scale(' + scale + ')';
-    controlsValue.value = String(percent) + '%';
+    var percent = value - 25;
+    scaleСalculation(percent);
   }
 }
 
 function zoomIn() {
   var value = parseInt(controlsValue.value, 10);
   if (value < 100) {
-    var percent = Number(value) + 25;
-    var scale = percent / 100;
-    photo.style.transform = 'scale(' + scale + ')';
-    controlsValue.value = String(percent) + '%';
+    var percent = value + 25;
+    scaleСalculation(percent);
   }
+}
+
+function scaleСalculation(percent) {
+  var scale = percent / 100;
+  photo.style.transform = 'scale(' + scale + ')';
+  controlsValue.value = String(percent) + '%';
 }
