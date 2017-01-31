@@ -9,7 +9,9 @@ var controlsValue = document.querySelector('.upload-resize-controls-value');
 uploadOverlay.classList.add('invisible');
 uploadSelectImage.classList.remove('invisible');
 
-uploadfile.addEventListener('click', function (event) {
+uploadfile.addEventListener('click', closeWindow);
+
+function closeWindow(event) {
   event.preventDefault();
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
@@ -19,16 +21,22 @@ uploadfile.addEventListener('click', function (event) {
   var scale = value / 100;
   photo.style.transform = 'scale(' + scale + ')';
   controlsValue.value = String(value) + '%';
-});
+}
 
-uploadCancel.addEventListener('click', function () {
+uploadCancel.addEventListener('click', openWindow);
+
+function openWindow() {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
-});
+}
 
 var photo = document.querySelector('.filter-image-preview');
 var controls = document.querySelectorAll('input[name="upload-filter"]');
+var preview = document.querySelectorAll('.upload-filter-preview');
 
+for (var k = 0; k < controls.length; k++) {
+  preview[k].classList.add('filter-' + controls[k].value);
+}
 
 for (var j = 0; j < controls.length; j++) {
   clickControl(controls[j]);
@@ -53,8 +61,10 @@ function toggleFilter(control) {
 var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
 var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
 
+buttonDec.addEventListener('click', zoomOut);
+buttonInc.addEventListener('click', zoomIn);
 
-buttonDec.addEventListener('click', function () {
+function zoomOut() {
   var value = parseInt(controlsValue.value, 10);
   if (value > 25) {
     var percent = Number(value) - 25;
@@ -62,8 +72,9 @@ buttonDec.addEventListener('click', function () {
     photo.style.transform = 'scale(' + scale + ')';
     controlsValue.value = String(percent) + '%';
   }
-});
-buttonInc.addEventListener('click', function () {
+}
+
+function zoomIn() {
   var value = parseInt(controlsValue.value, 10);
   if (value < 100) {
     var percent = Number(value) + 25;
@@ -71,4 +82,4 @@ buttonInc.addEventListener('click', function () {
     photo.style.transform = 'scale(' + scale + ')';
     controlsValue.value = String(percent) + '%';
   }
-});
+}
