@@ -5,38 +5,18 @@ var uploadSelectImage = document.querySelector('#upload-select-image');
 var uploadfile = document.querySelector('#upload-file');
 var uploadCancel = document.querySelector('#upload-cancel');
 var controlsValue = document.querySelector('.upload-resize-controls-value');
+var photo = document.querySelector('.filter-image-preview');
+var controls = document.querySelectorAll('input[name="upload-filter"]');
+var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
+var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
 
 uploadOverlay.classList.add('invisible');
 uploadSelectImage.classList.remove('invisible');
 
 uploadfile.addEventListener('click', closeWindow);
-
-function closeWindow(event) {
-  event.preventDefault();
-  uploadOverlay.classList.remove('invisible');
-  uploadSelectImage.classList.add('invisible');
-  controlsValue.step = 25;
-  controlsValue.value = '100%';
-  var value = parseInt(controlsValue.value, 10);
-  var scale = value / 100;
-  photo.style.transform = 'scale(' + scale + ')';
-  controlsValue.value = String(value) + '%';
-}
-
 uploadCancel.addEventListener('click', openWindow);
-
-function openWindow() {
-  uploadOverlay.classList.add('invisible');
-  uploadSelectImage.classList.remove('invisible');
-}
-
-var photo = document.querySelector('.filter-image-preview');
-var controls = document.querySelectorAll('input[name="upload-filter"]');
-var preview = document.querySelectorAll('.upload-filter-preview');
-
-for (var k = 0; k < controls.length; k++) {
-  preview[k].classList.add('filter-' + controls[k].value);
-}
+buttonDec.addEventListener('click', zoomOut);
+buttonInc.addEventListener('click', zoomIn);
 
 for (var j = 0; j < controls.length; j++) {
   clickControl(controls[j]);
@@ -58,11 +38,22 @@ function toggleFilter(control) {
   }
 }
 
-var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
-var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
+function openWindow() {
+  uploadOverlay.classList.add('invisible');
+  uploadSelectImage.classList.remove('invisible');
+}
 
-buttonDec.addEventListener('click', zoomOut);
-buttonInc.addEventListener('click', zoomIn);
+function closeWindow(event) {
+  event.preventDefault();
+  uploadOverlay.classList.remove('invisible');
+  uploadSelectImage.classList.add('invisible');
+  controlsValue.step = 25;
+  controlsValue.value = '100%';
+  var value = parseInt(controlsValue.value, 10);
+  var scale = value / 100;
+  photo.style.transform = 'scale(' + scale + ')';
+  controlsValue.value = String(value) + '%';
+}
 
 function zoomOut() {
   var value = parseInt(controlsValue.value, 10);
