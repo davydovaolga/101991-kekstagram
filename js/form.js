@@ -26,9 +26,7 @@ function closeWindow(event) {
   controlsValue.value = '100%';
   var value = parseInt(controlsValue.value, 10);
   scaleСalculation(value);
-  for (var i = 0; i < controls.length; i++) {
-    photo.classList.remove('filter-' + controls[i].value);
-  }
+  removeFilter();
   photo.classList.add('filter-none');
 }
 
@@ -43,12 +41,16 @@ function clickControl(control) {
 }
 
 function toggleFilter(control) {
-  for (var i = 0; i < controls.length; i++) {
-    photo.classList.remove('filter-' + controls[i].value);
-  }
+  removeFilter();
 
   if (photo) {
     photo.classList.add('filter-' + control.value);
+  }
+}
+
+function removeFilter() {
+  for (var i = 0; i < controls.length; i++) {
+    photo.classList.remove('filter-' + controls[i].value);
   }
 }
 
