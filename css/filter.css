@@ -1,0 +1,6 @@
+.filter-phobos {
+  filter: contrast(0.9) brightness(1.2) hue-rotate(-20deg) saturate(1.7) sepia(0.4);
+}
+.filter-heat {
+  filter: contrast(2) saturate(5) hue-rotate(-180deg);
+}
