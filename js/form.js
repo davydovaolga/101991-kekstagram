@@ -53,6 +53,13 @@ function onEnterOpenWindow(evt) {
   }
 }
 
+function onEscCloseWindow(evnt) {
+  if (evnt.keyCode === KEY_CODE_ESC) {
+    uploadOverlay.classList.add('invisible');
+    uploadSelectImage.classList.remove('invisible');
+  }
+}
+
 function openWindowWithPhoto(event) {
   event.preventDefault();
   uploadOverlay.classList.remove('invisible');
@@ -64,12 +71,7 @@ function openWindowWithPhoto(event) {
   removeFilter();
   filterImagePreview.classList.add('filter-none');
   uploadOverlay.ariaHidden = true;
-  document.addEventListener('keydown', function (evnt) {
-    if (evnt.keyCode === KEY_CODE_ESC) {
-      uploadOverlay.classList.add('invisible');
-      uploadSelectImage.classList.remove('invisible');
-    }
-  });
+  document.addEventListener('keydown', onEscCloseWindow);
 }
 
 function removeFilter() {
@@ -82,12 +84,7 @@ function closeWindowWithPhoto() {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
   uploadOverlay.ariaHidden = false;
-  document.removeEventListener('keydown', function (evnt) {
-    if (evnt.keyCode === KEY_CODE_ESC) {
-      uploadOverlay.classList.add('invisible');
-      uploadSelectImage.classList.remove('invisible');
-    }
-  });
+  document.removeEventListener('keydown', onEscCloseWindow);
 }
 
 function zoomOut() {
