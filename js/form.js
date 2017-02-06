@@ -17,20 +17,22 @@ var KEY_CODE_ESC = 27;
 uploadOverlay.classList.add('invisible');
 uploadSelectImage.classList.remove('invisible');
 
-uploadfile.addEventListener('click', closeWindow);
-uploadCancel.addEventListener('click', openWindow);
+uploadfile.addEventListener('click', openWindowWithPhoto);
+uploadCancel.addEventListener('click', closeWindowWithPhoto);
 buttonDec.addEventListener('click', zoomOut);
 buttonInc.addEventListener('click', zoomIn);
-uploadFilterControls.addEventListener('click', onClick);
-uploadFilterControls.addEventListener('keydown', onClickEnter);
+uploadFilterControls.addEventListener('click', onChangesFilter);
+uploadFilterControls.addEventListener('keydown', onKeydownEnter);
+uploadCancel.addEventListener('keydown', onEnterCloseWindow);
+uploadControl.addEventListener('keydown', onEnterOpenWindow);
 
-function onClickEnter(evt) {
+function onKeydownEnter(evt) {
   if (evt.keyCode === KEY_CODE_ENTER) {
-    onClick(event);
+    onChangesFilter(event);
   }
 }
 
-function onClick(event) {
+function onChangesFilter(event) {
   var target = event.target;
   if (target.classList.contains('upload-filter-preview')) {
     removeFilter();
@@ -39,20 +41,19 @@ function onClick(event) {
   }
 }
 
-uploadCancel.addEventListener('keydown', function (evt) {
+function onEnterCloseWindow(evt) {
   if (evt.keyCode === KEY_CODE_ENTER) {
-    openWindow();
+    closeWindowWithPhoto();
   }
-});
+}
 
-uploadControl.addEventListener('keydown', function (evt) {
+function onEnterOpenWindow(evt) {
   if (evt.keyCode === KEY_CODE_ENTER) {
-    closeWindow(event);
+    openWindowWithPhoto(event);
   }
-});
+}
 
-
-function closeWindow(event) {
+function openWindowWithPhoto(event) {
   event.preventDefault();
   uploadOverlay.classList.remove('invisible');
   uploadSelectImage.classList.add('invisible');
@@ -77,10 +78,16 @@ function removeFilter() {
   }
 }
 
-function openWindow() {
+function closeWindowWithPhoto() {
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
   uploadOverlay.ariaHidden = false;
+  document.removeEventListener('keydown', function (evnt) {
+    if (evnt.keyCode === KEY_CODE_ESC) {
+      uploadOverlay.classList.add('invisible');
+      uploadSelectImage.classList.remove('invisible');
+    }
+  });
 }
 
 function zoomOut() {
