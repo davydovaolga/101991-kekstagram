@@ -6,10 +6,10 @@ window.initializeFilters = function () {
   var controls = document.querySelectorAll('input[name="upload-filter"]');
   var KEY_CODE_ENTER = 13;
 
-  uploadFilterControls.addEventListener('click', onChangesFilter);
-  uploadFilterControls.addEventListener('keydown', onKeydownEnter);
+  uploadFilterControls.addEventListener('click', onSelectFilter);
+  uploadFilterControls.addEventListener('keydown', onSelectFilterByEnter);
 
-  function onChangesFilter(event) {
+  function onSelectFilter(event) {
     var target = event.target;
     if (target.classList.contains('upload-filter-preview')) {
       removeFilter();
@@ -26,9 +26,9 @@ window.initializeFilters = function () {
     }
   }
 
-  function onKeydownEnter(event) {
+  function onSelectFilterByEnter(event) {
     if (event.keyCode === KEY_CODE_ENTER) {
-      onChangesFilter(event);
+      onSelectFilter(event);
     }
   }
 };
