@@ -1,6 +1,6 @@
 'use strict';
 
-window.createScale = function (element, step, startValue) {
+window.createScale = (function (element, step, startValue) {
   var controlsValue = document.querySelector('.upload-resize-controls-value');
   var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
   var buttonInc = document.querySelector('.upload-resize-controls-button-inc');
@@ -33,4 +33,4 @@ window.createScale = function (element, step, startValue) {
     filterImagePreview.style.transform = 'scale(' + scale + ')';
     controlsValue.value = String(percent) + '%';
   }
-};
+})(window.resizeControls, 25, 100);
