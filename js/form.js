@@ -1,4 +1,5 @@
 'use strict';
+
 (function () {
   var uploadOverlay = document.querySelector('.upload-overlay');
   var uploadSelectImage = document.querySelector('#upload-select-image');
@@ -8,6 +9,8 @@
   var uploadControl = document.querySelector('.upload-control');
   var KEY_CODE_ENTER = 13;
   var KEY_CODE_ESC = 27;
+  var STEP = 25;
+  var DEFAULT_SCALE = 100;
 
   uploadOverlay.classList.add('invisible');
   uploadSelectImage.classList.remove('invisible');
@@ -18,7 +21,7 @@
   uploadControl.addEventListener('keydown', onOpenByEnter);
 
   window.initializeFilters();
-  window.createScale(resizeControls, 25, 100);
+  window.initializeScale(resizeControls, STEP, DEFAULT_SCALE);
 
   function onOpen(event) {
     event.preventDefault();
