@@ -49,8 +49,7 @@
 
   function onCloseByEsc(event) {
     if (event.keyCode === KEY_CODE_ESC) {
-      uploadOverlay.classList.add('invisible');
-      uploadSelectImage.classList.remove('invisible');
+      close();
     }
   }
 
