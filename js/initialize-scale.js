@@ -8,8 +8,7 @@ window.initializeScale = (function () {
     var buttonInc = element.querySelector('.upload-resize-controls-button-inc');
     var filterImagePreview = document.querySelector('.filter-image-preview');
 
-    controlsValue.value = startValue + '%';
-    filterImagePreview.style.transform = 'scale(' + startValue / 100 + ')';
+    scaleСalculation(startValue);
 
     buttonDec.addEventListener('click', onZoomOut);
     buttonInc.addEventListener('click', onZoomIn);
