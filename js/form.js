@@ -7,6 +7,8 @@
   var uploadCancel = document.querySelector('#upload-cancel');
   var resizeControls = document.querySelector('.upload-resize-controls');
   var uploadControl = document.querySelector('.upload-control');
+  var filterImagePreview = document.querySelector('.filter-image-preview');
+  var filterElement = document.querySelector('.upload-filter-controls');
   var KEY_CODE_ENTER = 13;
   var KEY_CODE_ESC = 27;
   var STEP = 25;
@@ -20,8 +22,18 @@
   uploadCancel.addEventListener('keydown', onCloseByEnter);
   uploadControl.addEventListener('keydown', onOpenByEnter);
 
-  window.initializeFilters();
-  window.initializeScale(resizeControls, STEP, DEFAULT_SCALE);
+  function applyScale(param) {
+    filterImagePreview.style.transform = 'scale(' + param + ')';
+  }
+
+  window.initializeScale(resizeControls, STEP, DEFAULT_SCALE, applyScale);
+
+  function applyFilter(newFilter, oldFilter) {
+    filterImagePreview.classList.remove('filter-' + oldFilter.value);
+    filterImagePreview.classList.add('filter-' + newFilter.value);
+  }
+
+  window.initializeFilters(filterElement, applyFilter);
 
   function onOpen(event) {
     event.preventDefault();
