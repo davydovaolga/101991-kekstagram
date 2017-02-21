@@ -2,11 +2,11 @@
 
 window.initializeScale = (function () {
 
-  return function (element, step, startValue) {
+  return function (element, step, startValue, cb) {
     var controlsValue = element.querySelector('.upload-resize-controls-value');
     var buttonDec = element.querySelector('.upload-resize-controls-button-dec');
     var buttonInc = element.querySelector('.upload-resize-controls-button-inc');
-    var filterImagePreview = document.querySelector('.filter-image-preview');
+
 
     scaleСalculation(startValue);
 
@@ -31,8 +31,11 @@ window.initializeScale = (function () {
 
     function scaleСalculation(percent) {
       var scale = percent / 100;
-      filterImagePreview.style.transform = 'scale(' + scale + ')';
       controlsValue.value = String(percent) + '%';
+      if (typeof cb === 'function') {
+        cb(scale);
+      }
     }
   };
+
 })();
