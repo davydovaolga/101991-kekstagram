@@ -22,17 +22,17 @@
   uploadCancel.addEventListener('keydown', onCloseByEnter);
   uploadControl.addEventListener('keydown', onOpenByEnter);
 
-  var applyScale = function (param) {
+  function applyScale(param) {
     filterImagePreview.style.transform = 'scale(' + param + ')';
-  };
+  }
 
   window.initializeScale(resizeControls, STEP, DEFAULT_SCALE, applyScale);
 
-  var applyFilter = function (newFilter, oldFilter) {
+  function applyFilter(newFilter, oldFilter) {
     filterImagePreview.classList.remove('filter-' + oldFilter.value);
     filterImagePreview.classList.add('filter-' + newFilter.value);
-    newFilter.setAttribute('checked', true);
-  };
+  }
+
   window.initializeFilters(filterElement, applyFilter);
 
   function onOpen(event) {
