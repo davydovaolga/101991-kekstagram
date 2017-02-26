@@ -5,6 +5,12 @@
   var blockPictures = document.querySelector('.pictures');
   var tmplPicture = document.querySelector('#picture-template');
   var contentPicture = tmplPicture.content.querySelector('.picture');
+  var filters = document.querySelector('.filters');
+  var popularFilter = document.querySelector('#filter-popular');
+  var newFilter = document.querySelector('#filter-new');
+  var discussedFilter = document.querySelector('#filter-discussed');
+
+  filters.classList.remove('hidden');
 
   function onLoad(event) {
     var target = event.target;
@@ -13,7 +19,15 @@
       document.write(target.status + ': ' + target.statusText);
       return;
     }
-    pictures.forEach(function (picture) {
+    renderImages(pictures);
+  }
+
+  window.load('https://intensive-javascript-server-myophkugvq.now.sh/kekstagram/data', onLoad);
+
+  function renderImages(pic) {
+    blockPictures.innerHTML = '';
+
+    pic.forEach(function (picture) {
       var elementPicture = contentPicture.cloneNode(true);
       var pictureImg = elementPicture.children[0];
       var pictureLikes = elementPicture.querySelector('.picture-likes');
@@ -24,12 +38,26 @@
       picturesComments.innerText = picture.comments.length;
       blockPictures.appendChild(elementPicture);
 
-      elementPicture.addEventListener('click', function (evnt) {
-        evnt.preventDefault();
+      elementPicture.addEventListener('click', function (event) {
+        event.preventDefault();
         window.showGalery(picture);
       });
     });
   }
-  window.load('https://intensive-javascript-server-myophkugvq.now.sh/kekstagram/data', onLoad);
 
+  popularFilter.addEventListener('click', function () {
+    renderImages(pictures);
+  });
+
+  newFilter.addEventListener('click', function () {
+    var sortedImage = pictures.slice().sort().slice(0, 10);
+    renderImages(sortedImage);
+  });
+
+  discussedFilter.addEventListener('click', function () {
+    var sortedImage = pictures.slice().sort(function (left, right) {
+      return right.comments.length - left.comments.length;
+    });
+    renderImages(sortedImage);
+  });
 })();
