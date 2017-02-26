@@ -63,8 +63,8 @@
     renderImages(sortedImage);
   }
 
- function onShowAllPictures() {
-   renderImages(pictures);
+  function onShowAllPictures() {
+    renderImages(pictures);
   }
 
 })();
