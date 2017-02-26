@@ -28,10 +28,10 @@
     switch (name) {
       case 'new':
         return sortByNew(copy);
-        break;
+      break;
       case 'discussed':
         return sortByDiscussed(copy);
-        break;
+      break;
       default:
         return copy;
     }
