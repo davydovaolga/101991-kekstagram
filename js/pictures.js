@@ -3,8 +3,6 @@
 (function () {
   var pictures = [];
   var blockPictures = document.querySelector('.pictures');
-  var tmplPicture = document.querySelector('#picture-template');
-  var contentPicture = tmplPicture.content.querySelector('.picture');
   var filters = document.querySelector('.filters');
 
   filters.addEventListener('click', onSelectSorting);
