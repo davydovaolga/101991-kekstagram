@@ -10,6 +10,10 @@
   var newFilter = document.querySelector('#filter-new');
   var discussedFilter = document.querySelector('#filter-discussed');
 
+  popularFilter.addEventListener('click', onShowAllPictures);
+  newFilter.addEventListener('click', onShowTenPictures);
+  discussedFilter.addEventListener('click', onShowSortPictures);
+
   filters.classList.remove('hidden');
 
   function onLoad(event) {
@@ -45,19 +49,22 @@
     });
   }
 
-  popularFilter.addEventListener('click', function () {
-    renderImages(pictures);
-  });
-
-  newFilter.addEventListener('click', function () {
-    var sortedImage = pictures.slice().sort().slice(0, 10);
-    renderImages(sortedImage);
-  });
-
-  discussedFilter.addEventListener('click', function () {
-    var sortedImage = pictures.slice().sort(function (left, right) {
-      return right.comments.length - left.comments.length;
+  function onShowSortPictures() {
+    var sortedImage = pictures.slice().sort(function (a, b) {
+      return b.comments.length - a.comments.length;
     });
     renderImages(sortedImage);
-  });
+  }
+
+  function onShowTenPictures() {
+    var sortedImage = pictures.slice().sort(function () {
+      return 0.5 - Math.random();
+    }).slice(0, 10);
+    renderImages(sortedImage);
+  }
+
+ function onShowAllPictures() {
+   renderImages(pictures);
+  }
+
 })();
