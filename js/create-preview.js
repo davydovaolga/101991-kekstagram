@@ -16,6 +16,12 @@ window.createPreview = (function () {
     pictureImg.src = picture.url;
     pictureLikes.innerText = picture.likes;
     picturesComments.innerText = picture.comments.length;
+
+    elementPicture.addEventListener('click', function (event) {
+      event.preventDefault();
+      window.showGalery(picture);
+    });
+
     return block.appendChild(elementPicture);
   };
 })();
