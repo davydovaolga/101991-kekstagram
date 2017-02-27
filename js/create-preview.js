@@ -2,14 +2,13 @@
 
 window.createPreview = (function () {
 
+  var block = document.querySelector('.pictures');
+  var template = document.querySelector('#picture-template');
+  var content = template.content.querySelector('.picture');
+
   return function (picture) {
-
-    var block = document.querySelector('.pictures');
-    var template = document.querySelector('#picture-template');
-    var content = template.content.querySelector('.picture');
-
     var elementPicture = content.cloneNode(true);
-    var pictureImg = elementPicture.children[0];
+    var pictureImg = elementPicture.querySelector('img');
     var pictureLikes = elementPicture.querySelector('.picture-likes');
     var picturesComments = elementPicture.querySelector('.picture-comments');
 
