@@ -1,39 +1,34 @@
 'use strict';
 
 (function () {
-  var uploadOverlay = document.querySelector('.upload-overlay');
-  var uploadSelectImage = document.querySelector('#upload-select-image');
-  var uploadfile = document.querySelector('#upload-file');
-  var uploadCancel = document.querySelector('#upload-cancel');
-  var resizeControls = document.querySelector('.upload-resize-controls');
-  var uploadControl = document.querySelector('.upload-control');
-  var filterImagePreview = document.querySelector('.filter-image-preview');
-  var filterElement = document.querySelector('.upload-filter-controls');
-  var KEY_CODE_ENTER = 13;
-  var KEY_CODE_ESC = 27;
+  var overlay = document.querySelector('.upload-overlay');
+  var uploadForm = document.querySelector('#upload-select-image');
+  var inputFile = document.querySelector('#upload-file');
+  var closeButton = overlay.querySelector('#upload-cancel');
+  var scaleTool = overlay.querySelector('.upload-resize-controls');
+  var submitButton = document.querySelector('.upload-control');
+  var image = overlay.querySelector('.filter-image-preview');
+  var filterContainer = overlay.querySelector('.upload-filter-controls');
+
+  inputFile.addEventListener('click', onOpen);
+  closeButton.addEventListener('click', onClose);
+  closeButton.addEventListener('keydown', onCloseByEnter);
+  submitButton.addEventListener('keydown', onOpenByEnter);
+
   var STEP = 25;
   var DEFAULT_SCALE = 100;
-
-  uploadOverlay.classList.add('invisible');
-  uploadSelectImage.classList.remove('invisible');
-
-  uploadfile.addEventListener('click', onOpen);
-  uploadCancel.addEventListener('click', onClose);
-  uploadCancel.addEventListener('keydown', onCloseByEnter);
-  uploadControl.addEventListener('keydown', onOpenByEnter);
-
-  function applyScale(param) {
-    filterImagePreview.style.transform = 'scale(' + param + ')';
-  }
-
-  window.initializeScale(resizeControls, STEP, DEFAULT_SCALE, applyScale);
+  window.initializeScale(scaleTool, STEP, DEFAULT_SCALE, applyScale);
+  window.initializeFilters(filterContainer, applyFilter);
+  close();
 
   function applyFilter(newFilter, oldFilter) {
-    filterImagePreview.classList.remove('filter-' + oldFilter.value);
-    filterImagePreview.classList.add('filter-' + newFilter.value);
+    image.classList.remove('filter-' + oldFilter);
+    image.classList.add('filter-' + newFilter);
   }
 
-  window.initializeFilters(filterElement, applyFilter);
+  function applyScale(value) {
+    image.style.transform = 'scale(' + value / 100 + ')';
+  }
 
   function onOpen(event) {
     event.preventDefault();
@@ -47,35 +42,35 @@
 
   function onCloseByEnter(event) {
     event.preventDefault();
-    if (event.keyCode === KEY_CODE_ENTER) {
+    if (window.utils.isEnterKey(event)) {
       close();
     }
   }
 
   function onOpenByEnter(event) {
     event.preventDefault();
-    if (event.keyCode === KEY_CODE_ENTER) {
+    if (window.utils.isEnterKey(event)) {
       open();
     }
   }
 
   function onCloseByEsc(event) {
-    if (event.keyCode === KEY_CODE_ESC) {
+    if (window.utils.isEscKey(event)) {
       close();
     }
   }
 
   function open() {
-    uploadOverlay.classList.remove('invisible');
-    uploadSelectImage.classList.add('invisible');
-    uploadOverlay.ariaHidden = true;
+    overlay.classList.remove('invisible');
+    uploadForm.classList.add('invisible');
+    overlay.ariaHidden = true;
     document.addEventListener('keydown', onCloseByEsc);
   }
 
   function close() {
-    uploadOverlay.classList.add('invisible');
-    uploadSelectImage.classList.remove('invisible');
-    uploadOverlay.ariaHidden = false;
+    overlay.classList.add('invisible');
+    uploadForm.classList.remove('invisible');
+    overlay.ariaHidden = false;
     document.removeEventListener('keydown', onCloseByEsc);
   }
 })();

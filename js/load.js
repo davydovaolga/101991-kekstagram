@@ -2,12 +2,11 @@
 
 window.load = (function () {
 
-  return function (url, onLoad) {
+  return function (url, cb) {
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoad);
+    xhr.addEventListener('load', cb);
     xhr.responseType = 'json';
     xhr.open('GET', url);
     xhr.send();
   };
-
 })();

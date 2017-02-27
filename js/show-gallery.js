@@ -1,14 +1,15 @@
 'use strict';
 
 window.showGalery = (function () {
+  var gallery = document.querySelector('.gallery-overlay');
+  var image = gallery.querySelector('.gallery-overlay-image');
+  var closeButton = gallery.querySelector('.gallery-overlay-close');
+  var likes = gallery.querySelector('.likes-count');
+  var comments = gallery.querySelector('.comments-count');
 
-  var galery = document.querySelector('.gallery-overlay');
-  var image = galery.querySelector('.gallery-overlay-image');
-  var closed = galery.querySelector('.gallery-overlay-close');
-  var likes = galery.querySelector('.likes-count');
-  var comments = galery.querySelector('.comments-count');
-  var KEY_CODE_ENTER = 13;
-  var KEY_CODE_ESC = 27;
+  closeButton.addEventListener('click', onClose);
+  closeButton.addEventListener('keydown', onCloseByEnter);
+  document.addEventListener('keydown', onCloseByEsc);
 
   function onClose(event) {
     event.preventDefault();
@@ -16,33 +17,27 @@ window.showGalery = (function () {
   }
 
   function onCloseByEnter(event) {
-    event.preventDefault();
-    if (event.keyCode === KEY_CODE_ENTER) {
+    if (window.utils.isEnterKey(event)) {
       close();
     }
   }
 
   function onCloseByEsc(event) {
-    if (event.keyCode === KEY_CODE_ESC) {
+    if (window.utils.isEscKey(event)) {
       close();
     }
   }
 
   function close() {
-    galery.classList.add('invisible');
-    galery.ariaHidden = false;
+    gallery.classList.add('invisible');
+    gallery.ariaHidden = false;
     document.removeEventListener('keydown', onCloseByEsc);
   }
 
   return function (picture) {
-
-    galery.classList.remove('invisible');
     image.src = picture.url;
-    likes.innerText = picture.likes;
-    comments.innerText = picture.comments.length;
-
-    closed.addEventListener('click', onClose);
-    galery.addEventListener('keydown', onCloseByEnter);
-    galery.addEventListener('keydown', onCloseByEsc);
+    likes.textContent = picture.likes;
+    comments.textContent = picture.comments.length;
+    gallery.classList.remove('invisible');
   };
 })();

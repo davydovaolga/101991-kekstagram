@@ -1,31 +1,38 @@
 'use strict';
 
 window.initializeFilters = (function () {
+  var filterActive = 'none';
+  var cb = null;
 
-  return function (element, cb) {
-    var KEY_CODE_ENTER = 13;
-    var filterOld = 'none';
+  function onSelectFilter(event) {
+    var target = event.target;
+    selectFilter(target);
+  }
 
+  function onSelectFilterByEnter(event) {
+    var target = event.target;
+    if (window.utils.isEnterKey(event)) {
+      selectFilter(target);
+    }
+  }
+
+  function selectFilter(nextFilter) {
+    if (!nextFilter.classList.contains('upload-filter-preview')) {
+      return;
+    }
+
+    var filterNew = nextFilter.parentNode.previousElementSibling;
+    if (typeof cb === 'function') {
+      cb(filterNew.value, filterActive.value);
+    }
+
+    filterActive = filterNew;
+    filterActive.checked = true;
+  }
+
+  return function (element, inputCb) {
+    cb = inputCb;
     element.addEventListener('click', onSelectFilter);
     element.addEventListener('keydown', onSelectFilterByEnter);
-
-    function onSelectFilter(event) {
-      var target = event.target;
-      if (!target.classList.contains('upload-filter-preview')) {
-        return;
-      }
-      var filterNew = target.parentNode.previousElementSibling;
-      if (typeof cb === 'function') {
-        cb(filterNew, filterOld);
-      }
-      filterNew.setAttribute('checked', true);
-      filterOld = filterNew;
-    }
-
-    function onSelectFilterByEnter(event) {
-      if (event.keyCode === KEY_CODE_ENTER) {
-        onSelectFilter(event);
-      }
-    }
   };
 })();

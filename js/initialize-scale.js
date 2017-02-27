@@ -6,36 +6,32 @@ window.initializeScale = (function () {
     var controlsValue = element.querySelector('.upload-resize-controls-value');
     var buttonDec = element.querySelector('.upload-resize-controls-button-dec');
     var buttonInc = element.querySelector('.upload-resize-controls-button-inc');
+    var scale = startValue;
+    var MIN_SCALE = 25;
+    var MAX_SCALE = 100;
 
-
-    scaleСalculation(startValue);
+    apply(scale);
 
     buttonDec.addEventListener('click', onZoomOut);
     buttonInc.addEventListener('click', onZoomIn);
 
     function onZoomOut() {
-      var value = parseInt(controlsValue.value, 10);
-      if (value > step) {
-        var percent = value - step;
-        scaleСalculation(percent);
-      }
+      var value = Math.max(MIN_SCALE, scale - step);
+      apply(value);
     }
 
     function onZoomIn() {
-      var value = parseInt(controlsValue.value, 10);
-      if (value < startValue) {
-        var percent = value + step;
-        scaleСalculation(percent);
-      }
+      var value = Math.min(MAX_SCALE, scale + step);
+      apply(value);
     }
 
-    function scaleСalculation(percent) {
-      var scale = percent / 100;
+    function apply(percent) {
       controlsValue.value = String(percent) + '%';
+      scale = percent;
+
       if (typeof cb === 'function') {
-        cb(scale);
+        cb(percent);
       }
     }
   };
-
 })();
