@@ -12,7 +12,6 @@ window.showGalery = (function () {
   document.addEventListener('keydown', onCloseByEsc);
 
   function onClose(event) {
-    event.preventDefault();
     close();
   }
 
